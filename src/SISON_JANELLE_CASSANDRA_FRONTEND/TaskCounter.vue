@@ -60,8 +60,6 @@ FILE STRUCTURE (this is a single-file component)
 
 <script setup>
 import { ref, computed } from 'vue'
-// import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-// import { byPrefixAndName } from '@awesome.me/kit-KIT_CODE/icons'
 
 // TODO 1: Create a ref for the text input value (initial value: '')
 const newTaskName = ref("")
@@ -81,6 +79,7 @@ const totalCount  = computed(() => tasks.value.length)
 const doneCount   = computed(() => tasks.value.filter(t => t.done).length)
 const pendingCount = computed(() => tasks.value.filter(t => !t.done).length)
 
+// for managing selected task priority in the dropdown for choosing task priority
 const selectedPriority = ref('low')
 
 // All || Done || Pending
@@ -109,7 +108,11 @@ function addTask() {
       priority: selectedPriority.value,
       done: false
     }
+
+    // push new task to the list of tasks
     tasks.value.push(newTask)
+
+    // reset input fields + dropdown
     newTaskName.value = '';
     selectedPriority.value = "low"
   } 
@@ -119,6 +122,8 @@ function addTask() {
 function toggleTask(id) {
   // your code here
   const foundTask = tasks.value.find(task => task.id === id)
+
+  // safety net
   if (foundTask) {
     foundTask.done = !foundTask.done
   }
@@ -130,6 +135,7 @@ function removeTask(id) {
   tasks.value = tasks.value.filter(task => task.id !== id)
 }
 
+// filters tasks that are not done yet and updates tasks current value
 function clearDoneTasks() {
   tasks.value = tasks.value.filter(t => !t.done)
 }
@@ -152,20 +158,21 @@ function clearDoneTasks() {
        v-model="newTaskName"
        placeholder="Enter a new task.."
       />
-       <div class="priorities-dropdown">
-        <label for="priorities">Priority</label>
-        <select v-model="selectedPriority">
-          <option value="low">Low</option>
-          <option value="medium">Medium</option>
-          <option value="high">High</option>
-        </select>
-       </div>
-       <button 
-        @click="addTask"
-        :disabled="!newTaskName.trim()"
-        >
-        Add Task
-       </button>
+        <!-- task priority dropdown -->
+        <div class="priorities-dropdown">
+          <label for="priorities">Priority</label>
+          <select v-model="selectedPriority">
+            <option value="low">Low</option>
+            <option value="medium">Medium</option>
+            <option value="high">High</option>
+          </select>
+        </div>
+        <button 
+          @click="addTask"
+          :disabled="!newTaskName.trim()"
+          >
+          Add Task
+        </button>
     </div>
 
     <!-- TODO 9: Display the stats bar using your computed values -->
@@ -189,6 +196,7 @@ function clearDoneTasks() {
 
     <div class="misc">
       <div class="filters">
+        <!-- filter buttons -->
         <button
           v-for="option in options"
           :key="option"
@@ -199,12 +207,12 @@ function clearDoneTasks() {
         </button>
       </div>
       <span>
+        <!-- clear all button -->
         <button 
           class="clear-btn" 
           @click="clearDoneTasks" 
           :disabled="doneCount === 0"
         >
-          <!-- <FontAwesomeIcon :icon="byPrefixAndName.fas['broom']" /> -->
           Clear All Done
         </button>
       </span>
