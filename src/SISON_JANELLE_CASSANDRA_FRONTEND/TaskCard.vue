@@ -63,7 +63,6 @@ HINTS (read only if stuck)
 <script setup>
 // TODO 1: import defineProps and defineEmits (they are compiler macros — no import needed
 //          but you DO need to call them)
-import { defineProps, defineEmits } from 'vue';
 
 // TODO 2: Define the task prop with type Object, required: true
 const props = defineProps({
