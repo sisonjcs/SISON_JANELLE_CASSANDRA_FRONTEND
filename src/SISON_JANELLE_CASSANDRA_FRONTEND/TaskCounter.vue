@@ -253,7 +253,7 @@ function clearDoneTasks() {
   padding: 32px;
   background: #f9fafb;
   border-radius: 12px;
-  box-shadow: 0 2px 12px rgba(0,0,0,0.2);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
 }
 
 .title {
@@ -270,6 +270,7 @@ function clearDoneTasks() {
 
 .title h1 {
   margin: 0;
+  font-weight: bold;
 }
 
 .input-row {
