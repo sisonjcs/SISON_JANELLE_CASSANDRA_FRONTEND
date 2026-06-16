@@ -135,13 +135,20 @@ function toggleEditing() {
 <style scoped>
 .task-card {
   background: white;
-  border: 1px solid #e5e7eb;
+  border: 1px solid #e2e2e2;
   border-radius: 10px;
   padding: 14px 16px;
   margin-bottom: 12px;
-  min-width: 300px;
+  min-width: 400px;
   transition: all 0.2s;
+  box-shadow: 0 1px 5px rgba(0,0,0,0.1);
 }
+
+.task-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
 .task-card.completed {
   background: #f0fdf4;
   border-color: #86efac;
@@ -157,7 +164,7 @@ function toggleEditing() {
   font-size: 9px;
   border-radius: 8px;
   max-width: fit-content;
-  padding: 5px;
+  padding: 5px 8px;
   margin-bottom: 5px;
   gap: 5px;
 }
@@ -204,14 +211,22 @@ function toggleEditing() {
   align-items: center;
   margin-bottom: 10px;
 }
-.task-header span.name {
+
+.task-header span {
   white-space: normal;
   word-wrap: break-word;
   overflow-wrap: break-word;
   font-weight: 600;
   font-size: 15px;
   color: #1B2A4A;
+  cursor: pointer;
 }
+
+.task-header input {
+  border-radius: 5px;
+  padding: 5px;
+}
+
 .task-header .meta {
   font-size: 12px;
   color: #9ca3af;
