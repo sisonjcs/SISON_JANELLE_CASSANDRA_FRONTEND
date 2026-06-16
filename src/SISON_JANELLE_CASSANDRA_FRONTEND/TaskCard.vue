@@ -61,6 +61,7 @@ HINTS (read only if stuck)
 
 <!-- ─── TaskCard.vue ─── -->
 <script setup>
+import { ref } from 'vue'
 // TODO 1: import defineProps and defineEmits (they are compiler macros — no import needed
 //          but you DO need to call them)
 
@@ -71,7 +72,14 @@ const props = defineProps({
 })
 
 // TODO 3: Define emits for 'complete' and 'delete'
-const emit = defineEmits(['complete', 'delete'])
+const emit = defineEmits(['complete', 'delete', 'update'])
+
+const isEditing = ref(false)
+const newTaskName = ref('')
+
+function toggleEditing() {
+  isEditing.value = !isEditing.value
+}
 
 </script>
 
@@ -86,9 +94,20 @@ const emit = defineEmits(['complete', 'delete'])
 
     <div class="task-header">
       <!-- TODO 5: Display the task name -->
-      <span>
+      <span
+        v-if="!isEditing"
+        @click="toggleEditing"
+      >
         {{ task.name }}
       </span>
+
+      <input
+        v-if="isEditing"
+        type="text"
+        :placeholder="props.task.name"
+        v-model="props.task.name"
+        @keyup.enter="toggleEditing"
+      />
       <!-- TODO 6: Add the named slot for metadata -->
       <slot name="meta" />
     </div>
