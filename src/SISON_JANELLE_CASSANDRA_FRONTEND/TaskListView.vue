@@ -11,10 +11,10 @@ import TaskCard from './TaskCard.vue'
 // TODO 1: Create a ref() tasks array with at least 3 sample tasks
 // Each task: { id, name, done, dueDate }
 const tasks = ref([
-  {id: 1, name: 'Learn', done: false, dueDate: '2026-06-17'},
-  {id: 2, name: 'Study', done: true, dueDate: '2026-06-17'},
-  {id: 3, name: 'Eat', done: true, dueDate: '2026-06-17'},
-  {id: 4, name: 'Sleep', done: false, dueDate: '2026-06-17'},
+  {id: 1, name: 'Learn', done: false, dueDate: '2026-06-17', priority: 'low'},
+  {id: 2, name: 'Study', done: true, dueDate: '2026-06-17', priority: 'medium'},
+  {id: 3, name: 'Eat', done: true, dueDate: '2026-06-17', priority: 'high'},
+  {id: 4, name: 'Sleep', done: false, dueDate: '2026-06-17', priority: 'low'},
 ])
 
 // TODO 2: Write handleComplete(id) — toggle the done state of the task with this id

@@ -79,6 +79,10 @@ const emit = defineEmits(['complete', 'delete'])
   <!-- TODO 4: Wrap everything in a div with class "task-card"
                Add :class="{ completed: task.done }" to the wrapper div -->
   <div class="task-card" :class="{ completed: task.done }">
+    <div class="priority-badge" :class="props.task.priority">
+      <div :class="`${props.task.priority}-circle`"/>
+      {{ props.task.priority }}
+    </div>
 
     <div class="task-header">
       <!-- TODO 5: Display the task name -->
@@ -124,6 +128,57 @@ const emit = defineEmits(['complete', 'delete'])
   border-color: #86efac;
   opacity: 0.8;
 }
+
+.priority-badge {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  text-transform: uppercase;
+  font-size: 9px;
+  border-radius: 8px;
+  max-width: fit-content;
+  padding: 5px;
+  margin-bottom: 5px;
+  gap: 5px;
+}
+
+.low {
+  background: #FAFCCF;
+  color: #9FA70C;
+}
+
+.medium {
+  background: #FCE7CF;
+  color: #A74F0C;
+}
+
+.high {
+  background: #FCCFCF;
+  color: #A70C0C;
+}
+
+.low-circle {
+  background: #9FA70C;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+.medium-circle {
+  background: #A74F0C;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+.high-circle {
+  background: #A70C0C;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
 .task-header {
   display: flex;
   justify-content: space-between;
