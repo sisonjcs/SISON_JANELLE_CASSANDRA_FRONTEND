@@ -279,17 +279,6 @@ function clearDoneTasks() {
   margin-bottom: 16px;
 }
 
-.error {
-  border: 1px solid red;
-  color: red;
-}
-
-.errorMsg {
-  color: red;
-  font-size: 10px;
-  margin: -15px 0 10px 0;
-}
-
 .input-row input {
   flex: 1;
   padding: 8px 12px;
@@ -367,13 +356,17 @@ function clearDoneTasks() {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  align-items: center;
   gap: 10px;
   padding: 0 0 10px 0;
 }
 
 .filters {
   display: flex;
-  gap: 10px;
+  gap: 5px;
+  padding: 5px;
+  background: #ededed;
+  border-radius: 10px;
 }
 
 .filtered {
@@ -381,22 +374,22 @@ function clearDoneTasks() {
   background: #42B883;
   color: white;
   border: none;
-  border-radius: 20px;
+  border-radius: 10px;
   cursor: pointer;
   font-weight: bold;
 }
 
 .unfiltered {
   padding: 8px 16px;
-  color: #42B883;
-  background: white;
-  border: 1px solid #42B883;
-  border-radius: 20px;
+  color: gray;
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 10px;
   cursor: pointer;
 }
 
 .unfiltered:hover {
-  background: #D5F0E4;
+  background: #e3e3e3;
 }
 
 .clear-btn {
