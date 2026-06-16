@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import TaskCounter_Template from "./SISON_JANELLE_CASSANDRA_FRONTEND/TaskCounter.vue"
+import TaskCounter from "./views/day1/TaskCounter.vue"
 
 </script>
 
 <template>
-  <TaskCounter_Template />
+  <TaskCounter />
 </template>
 
 <style scoped>

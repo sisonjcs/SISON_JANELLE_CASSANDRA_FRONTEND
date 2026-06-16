@@ -2,6 +2,6 @@ import './assets/main.css'
 
 import { createApp } from 'vue'
 import App from './App.vue'
-import TaskListView from './SISON_JANELLE_CASSANDRA_FRONTEND/TaskListView.vue'
+import TaskListView from './views/day2/TaskListView.vue/index.js'
 
 createApp(TaskListView).mount('#app')
