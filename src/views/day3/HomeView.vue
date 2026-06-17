@@ -8,7 +8,6 @@
 import { computed } from 'vue'
 import { useRoute } from 'vue-router'
 import { useTaskStore } from '@/stores/taskStore'
-import Navbar from '@/components/Navbar.vue'
 
 const taskStore = useTaskStore()
 const route     = useRoute()
@@ -19,7 +18,6 @@ const showErrorBanner = computed(() => route.query.error === 'notfound')
 
 <template>
   <div class="home-view">
-    <Navbar />
     
     <div class="home-content">
       <h1>📝 My Tasks</h1>

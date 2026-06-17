@@ -1,7 +1,6 @@
 <script setup>
 import { computed } from 'vue';
 import { useTaskStore } from '@/stores/taskStore';
-import Navbar from '@/components/Navbar.vue';
 
 const taskStore = useTaskStore()
 
@@ -15,7 +14,6 @@ const pendingCount = computed(() => taskStore.pendingCount)
 
 <template>
     <div class="stats-view">
-        <Navbar/>
         <div class="app">
             <div class="title">
                 <h1>📊 Task Stats</h1>
