@@ -45,6 +45,7 @@ const pendingCount = computed(() => taskStore.pendingCount)
 .stats-view {
     width: 100%;
     height: 100vh;
+    margin: 40px auto;
 }
 
 .stats-view nav {
