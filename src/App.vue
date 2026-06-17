@@ -1,10 +1,18 @@
 <script setup lang="ts">
+import { computed } from 'vue';
+import { useRoute } from 'vue-router';
 import Navbar from './components/Navbar.vue';
-
+const route = useRoute()
+const isTask = computed(() => {
+    if (route.path != "/home" && route.path != "/stats" && route.path != "/about") {
+      return true
+    }
+    return false
+  })
 </script>
 
 <template>
-  <header>
+  <header v-show="!isTask">
     <Navbar />
   </header>
   <router-view v-slot="{ Component }">
