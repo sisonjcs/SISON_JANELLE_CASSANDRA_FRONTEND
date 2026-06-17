@@ -1,6 +1,7 @@
 <script setup>
 import { computed } from 'vue';
 import { useTaskStore } from '@/stores/taskStore';
+import Navbar from '@/components/Navbar.vue';
 
 const taskStore = useTaskStore()
 
@@ -10,14 +11,11 @@ const pendingCount = computed(() => taskStore.pendingCount)
 
 </script>
 
+<!-- Navbar moved to @/components -->
+
 <template>
     <div class="stats-view">
-        <nav class="page-nav">
-          <!-- TODO 3: Add a RouterLink to /about -->
-           <RouterLink to="/home">Home</RouterLink>
-          <RouterLink to="/stats">Stats</RouterLink>
-          <RouterLink to="/about">About</RouterLink>
-        </nav>
+        <Navbar/>
         <div class="app">
             <div class="title">
                 <h1>📊 Task Stats</h1>
@@ -46,32 +44,6 @@ const pendingCount = computed(() => taskStore.pendingCount)
     width: 100%;
     height: 100vh;
     margin: 40px auto;
-}
-
-.stats-view nav {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: rgb(235, 235, 235);
-    max-width: fit-content;
-    margin: 0 auto;
-    padding: 10px;
-    border-radius: 10px;
-    gap: 10px;
-}
-
-.page-nav a {
-    padding: 10px;
-    border-radius: 10px;
-    font-weight: bold;
-    min-width: 100px;
-    text-align: center;
-}
-
-.router-link-active {
-    background: hsla(160, 100%, 37%, 1);
-    padding: 10px;
-    color: white;
 }
 
 .app {
