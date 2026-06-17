@@ -9,9 +9,5 @@ export const useTaskStore = defineStore('tasks', () => {
         {id: 4, name: 'Sleep', done: false, dueDate: '2026-06-17', priority: 'low'},
     ])
 
-    function getTask(id: number) {
-        return tasks.value.find(task => task.id === id)
-    }
-
-    return tasks
+    
 })
