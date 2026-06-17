@@ -8,6 +8,7 @@
 import { computed } from 'vue'
 import { useRoute } from 'vue-router'
 import { useTaskStore } from '@/stores/taskStore'
+import Navbar from '@/components/Navbar.vue'
 
 const taskStore = useTaskStore()
 const route     = useRoute()
@@ -18,34 +19,33 @@ const showErrorBanner = computed(() => route.query.error === 'notfound')
 
 <template>
   <div class="home-view">
-    <h1>📝 My Tasks</h1>
-
-    <!-- TODO 2: Show a warning banner if showErrorBanner is true -->
-    <div class="error-banner" v-if="showErrorBanner">
-      ⚠️ Task not found. Redirected back to home.
+    <Navbar />
+    
+    <div class="home-content">
+      <h1>📝 My Tasks</h1>
+  
+      <!-- TODO 2: Show a warning banner if showErrorBanner is true -->
+      <div class="error-banner" v-if="showErrorBanner">
+        ⚠️ Task not found. Redirected back to home.
+      </div>
+  
+      <!-- TODO 4: Render each task as a RouterLink to /task/:id -->
+      <!-- Use <RouterLink :to="`/task/${task.id}`"> as the wrapper -->
+      <ul class="task-list">
+        <li v-for="task in taskStore.tasks" :key="task.id">
+          <!-- TODO 5: Wrap this in a RouterLink -->
+           <RouterLink :to="`/task/${task.id}`">
+            <span :class="{ done: task.done }">{{ task.name }}</span>
+           </RouterLink>
+        </li>
+      </ul>
     </div>
-
-    <nav class="page-nav">
-      <!-- TODO 3: Add a RouterLink to /about -->
-      <RouterLink to="/about">About</RouterLink>
-      <RouterLink to="/stats">Stats</RouterLink>
-    </nav>
-
-    <!-- TODO 4: Render each task as a RouterLink to /task/:id -->
-    <!-- Use <RouterLink :to="`/task/${task.id}`"> as the wrapper -->
-    <ul class="task-list">
-      <li v-for="task in taskStore.tasks" :key="task.id">
-        <!-- TODO 5: Wrap this in a RouterLink -->
-         <RouterLink :to="`/task/${task.id}`">
-          <span :class="{ done: task.done }">{{ task.name }}</span>
-         </RouterLink>
-      </li>
-    </ul>
   </div>
 </template>
 
 <style scoped>
-.home-view { max-width: 520px; margin: 40px auto; padding: 24px; font-family: Arial, sans-serif; }
+.home-view { max-width: 520px; margin: 40px auto; font-family: Arial, sans-serif; }
+.home-content { margin-top: 50px;}
 h1 { color: #1B2A4A; margin-bottom: 16px; }
 .error-banner { background: #fef3c7; border: 1px solid #f59e0b; border-radius: 6px; padding: 10px 14px; margin-bottom: 16px; color: #92400e; font-size: 14px; }
 .page-nav { margin-bottom: 20px; }
