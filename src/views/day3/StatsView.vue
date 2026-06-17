@@ -11,22 +11,30 @@ const pendingCount = computed(() => taskStore.pendingCount)
 </script>
 
 <template>
-    <div class="app">
-        <div class="title">
-            <h1>📊 Task Stats</h1>
-        </div>
-        <div class="stats-content">
-            <div>
-                <span>Total</span>
-                <strong>{{ totalCount }}</strong>
+    <div class="stats-view">
+        <nav class="page-nav">
+          <!-- TODO 3: Add a RouterLink to /about -->
+           <RouterLink to="/home">Home</RouterLink>
+          <RouterLink to="/stats">Stats</RouterLink>
+          <RouterLink to="/about">About</RouterLink>
+        </nav>
+        <div class="app">
+            <div class="title">
+                <h1>📊 Task Stats</h1>
             </div>
-            <div>
-                <span>Done</span>
-                <strong>{{ doneCount }}</strong>
-            </div>
-            <div>
-                <span>Pending</span>
-                <strong>{{ pendingCount }}</strong>
+            <div class="stats-content">
+                <div>
+                    <span>Total</span>
+                    <strong>{{ totalCount }}</strong>
+                </div>
+                <div>
+                    <span>Done</span>
+                    <strong>{{ doneCount }}</strong>
+                </div>
+                <div>
+                    <span>Pending</span>
+                    <strong>{{ pendingCount }}</strong>
+                </div>
             </div>
         </div>
     </div>
@@ -34,12 +42,43 @@ const pendingCount = computed(() => taskStore.pendingCount)
 
 <style scoped>
 
+.stats-view {
+    width: 100%;
+    height: 100vh;
+}
+
+.stats-view nav {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgb(235, 235, 235);
+    max-width: fit-content;
+    margin: 0 auto;
+    padding: 10px;
+    border-radius: 10px;
+    gap: 10px;
+}
+
+.page-nav a {
+    padding: 10px;
+    border-radius: 10px;
+    font-weight: bold;
+    min-width: 100px;
+    text-align: center;
+}
+
+.router-link-active {
+    background: hsla(160, 100%, 37%, 1);
+    padding: 10px;
+    color: white;
+}
+
 .app {
   max-width: 480px;
   width: 100%;
   font-family: Arial, sans-serif;
   padding: 32px;
-  margin: 40px auto;
+  margin: 50px auto;
   background: #f9fafb;
   border-radius: 12px;
   box-shadow: 0 4px 12px rgba(0,0,0,0.2);
@@ -79,7 +118,8 @@ const pendingCount = computed(() => taskStore.pendingCount)
 }
 
 .stats-content strong {
-  font-size: 18px;
+  font-weight: 700;
+  font-size: 30px;
   color: #42B883;
 }
 
