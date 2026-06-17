@@ -4,12 +4,20 @@ import TaskListView from "@/views/day2/TaskListView.vue";
 import HomeView from "@/views/day3/HomeView.vue";
 import TaskDetailView from "@/views/day3/TaskDetailView.vue";
 import AboutView from "@/views/day3/AboutView.vue";
+import StatsView from "@/views/day3/StatsView.vue";
 import { useTaskStore } from "@/stores/taskStore";
+
+// EXTENSION
+// ---------
+//  - Add a /stats route that shows total/done/pending counts
+//  - Add router-link-active styling to the nav links
+//  - Add a page transition animation using Vue's <Transition> component
 
 const routes = [
     { path: '/', redirect: '/home' },
     { path: '/home', component: HomeView },
     { path: '/about', component: AboutView }, 
+    { path: '/stats', component: StatsView },
     { path: '/task-counter', component: TaskCounter },
     { path: '/task-list', component: TaskListView },
     { path: '/task/:id', component: TaskDetailView, meta: { requiresTask: true } },

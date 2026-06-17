@@ -28,6 +28,7 @@ const showErrorBanner = computed(() => route.query.error === 'notfound')
     <nav class="page-nav">
       <!-- TODO 3: Add a RouterLink to /about -->
       <RouterLink to="/about">About</RouterLink>
+      <RouterLink to="/stats">Stats</RouterLink>
     </nav>
 
     <!-- TODO 4: Render each task as a RouterLink to /task/:id -->

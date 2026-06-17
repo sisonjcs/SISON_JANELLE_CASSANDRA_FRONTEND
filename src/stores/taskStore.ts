@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
 
 export const useTaskStore = defineStore('tasks', () => {
     const tasks = ref([
@@ -9,5 +9,9 @@ export const useTaskStore = defineStore('tasks', () => {
         {id: 4, name: 'Sleep', done: false, dueDate: '2026-06-18', priority: 'low'},
     ])
 
-    return ({ tasks })
+    const totalCount = computed(() => tasks.value.length)
+    const doneCount = computed(() => tasks.value.filter(t => t.done).length)
+    const pendingCount = computed(() => tasks.value.filter(t => !t.done).length)
+
+    return ({ tasks, totalCount, doneCount, pendingCount })
 })
