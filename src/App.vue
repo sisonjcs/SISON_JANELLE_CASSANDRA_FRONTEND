@@ -1,10 +1,8 @@
 <script setup lang="ts">
-import TaskCounter from "./views/day1/TaskCounter.vue"
-
 </script>
 
 <template>
-  <TaskCounter />
+  <router-view></router-view>
 </template>
 
 <style scoped>

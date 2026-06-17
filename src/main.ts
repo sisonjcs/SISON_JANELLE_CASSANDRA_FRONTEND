@@ -2,6 +2,6 @@ import './assets/main.css'
 
 import { createApp } from 'vue'
 import App from './App.vue'
-import TaskListView from './views/day2/TaskListView.vue/index.js'
+import router from './router/main'
 
-createApp(TaskListView).mount('#app')
+createApp(App).use(router).mount('#app')
