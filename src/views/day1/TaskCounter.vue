@@ -259,6 +259,7 @@ function clearDoneTasks() {
   width: 100%;
   font-family: Arial, sans-serif;
   padding: 32px;
+  margin: 40px auto;
   background: #f9fafb;
   border-radius: 12px;
   box-shadow: 0 4px 12px rgba(0,0,0,0.2);
