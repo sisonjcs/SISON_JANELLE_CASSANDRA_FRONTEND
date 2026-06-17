@@ -2,8 +2,13 @@
 </script>
 
 <template>
-  <header>
-    <RouterLink to="/">
+  <!-- <header>
+    <RouterLink to="/home">
+      <p>
+        Home
+      </p>
+    </RouterLink>
+    <RouterLink to="/task-counter">
       <p>
         Task Counter
       </p>
@@ -13,10 +18,8 @@
         Task List
       </p>
     </RouterLink>
-  </header>
-  <main>
-    <router-view></router-view>
-  </main>
+  </header> -->
+  <RouterView />
 </template>
 
 <style scoped>
