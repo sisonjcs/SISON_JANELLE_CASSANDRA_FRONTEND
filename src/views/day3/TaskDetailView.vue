@@ -35,8 +35,17 @@ function goBack() {
 
       <!-- TODO 5: Display task.name, task.dueDate, and task.done status -->
       <h1>{{ task.name }}</h1>
-      <p>Status: {{ task.done }}</p>
-      <p>Due: {{ task.dueDate }}</p>
+      <p>Status:
+        <span :class="{ done: task.done, pending: !task.done }" >
+          <div :class="{ donecircle: task.done, pendingcircle: !task.done }"/>
+          {{ task.done ? "Finished" : "Pending"}}
+        </span>
+      </p>
+      <p>Due: 
+        <span class="task-duedate">
+          {{ task.dueDate }}
+        </span>
+      </p>
     </div>
 
     <!-- This case is handled by the router guard, but good to have a fallback -->
@@ -49,8 +58,41 @@ function goBack() {
 
 <style scoped>
 .detail-view { max-width: 520px; margin: 40px auto; padding: 24px; font-family: Arial, sans-serif; }
+.detail-view div p span {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
 .back-btn { background: none; border: 1px solid #ddd; border-radius: 6px; padding: 6px 14px; cursor: pointer; margin-bottom: 20px; }
 .back-btn:hover { background: #f3f4f6; }
-h1 { color: #1B2A4A; font-size: 24px; margin-bottom: 12px; }
-p { color: #4A5568; font-size: 15px; margin: 6px 0; }
+h1 { color: #1B2A4A; font-size: 35px; margin-bottom: 12px; font-weight: bold; }
+p { display: flex; flex-direction: row; align-items: center; color: #4A5568; font-size: 15px; margin: 6px 0; gap: 10px;}
+
+.done {
+  padding: 3px 10px;
+  border-radius: 10px;
+  background: #cffcd7;
+  color: #0ca721;
+}
+
+.donecircle {
+  background: #0ca721;
+  width: 10px;
+  height: 10px;
+  border-radius: 100%;
+}
+
+.pending {
+  padding: 3px 10px;
+  border-radius: 10px;
+  background: #FAFCCF;
+  color: #9FA70C;
+}
+
+.pendingcircle {
+  background: #9FA70C;
+  width: 10px;
+  height: 10px;
+  border-radius: 100%;
+}
 </style>
