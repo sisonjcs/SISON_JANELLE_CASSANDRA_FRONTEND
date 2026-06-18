@@ -31,6 +31,7 @@ function handleAdd() {
 </script>
 
 <template>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <div class="task-view">
     <h1>📝 Tasks</h1>
 
@@ -72,10 +73,8 @@ function handleAdd() {
         <span :class="{done: task.done}">
             {{ task.name }}
         </span>
-        <button
-            @click="removeTask(task.id)"
-        >
-            Remove
+        <button @click="removeTask(task.id)">
+          <i class="fa fa-trash fa-lg"></i>
         </button>
       </li>
     </ul>
@@ -121,6 +120,21 @@ h1 { color: #1B2A4A; }
   font-size: 18px;
   color: #42B883;
 }
+
+.task-list li button {
+  padding: 8px;
+  background: #fee2e2;
+  color: #dc2626;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 12px;
+}
+
+.task-list li button:hover {
+  background: #FDC9C9;
+}
+
 .input-row { display: flex; gap: 8px; margin-bottom: 16px; }
 .input-row input { flex: 1; padding: 8px 12px; border: 1px solid #ddd; border-radius: 6px; font-size: 14px; }
 .input-row button { padding: 8px 16px; background: #42B883; color: white; border: none; border-radius: 6px; cursor: pointer; }
