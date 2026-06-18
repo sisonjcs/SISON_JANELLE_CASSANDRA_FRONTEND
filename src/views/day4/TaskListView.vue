@@ -54,7 +54,7 @@ function handleAdd() {
 
     <div class="input-row">
       <input v-model="newTaskName" placeholder="New task..." @keyup.enter="handleAdd" />
-      <button @click="handleAdd">Add</button>
+      <button @click="handleAdd" :disabled="!newTaskName.trim()">Add</button>
     </div>
 
     <!-- TODO 7: Render the task list using tasks from the store -->
@@ -79,11 +79,20 @@ function handleAdd() {
         </button>
       </li>
     </ul>
+    <p v-show="tasks.length === 0">
+      No tasks yet. Add one above!
+    </p>
   </div>
 </template>
 
 <style scoped>
 .task-view { max-width: 480px; margin: 40px auto; padding: 24px; font-family: Arial, sans-serif; }
+
+.task-view p {
+    text-align: center;
+    font-style: italic;
+    color: #666;
+}
 h1 { color: #1B2A4A; }
 /* .stats { font-size: 13px; color: #555; padding: 8px 12px; background: #e9f7f0; border-radius: 6px; margin-bottom: 16px; } */
 .stats {
@@ -115,6 +124,14 @@ h1 { color: #1B2A4A; }
 .input-row { display: flex; gap: 8px; margin-bottom: 16px; }
 .input-row input { flex: 1; padding: 8px 12px; border: 1px solid #ddd; border-radius: 6px; font-size: 14px; }
 .input-row button { padding: 8px 16px; background: #42B883; color: white; border: none; border-radius: 6px; cursor: pointer; }
+.input-row button:hover {
+  background: #399D70; 
+}
+
+.input-row button:disabled {
+  background: #619d829c;
+  cursor: not-allowed;
+}
 .task-list { list-style: none; padding: 0; margin: 0; }
 .task-list li { display: flex; align-items: center; gap: 10px; padding: 10px 12px; background: white; border-radius: 6px; margin-bottom: 8px; border: 1px solid #eee; }
 .task-list li span { flex: 1; font-size: 14px; }
