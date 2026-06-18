@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from "vue-router";
 import TaskCounter from "@/views/day1/TaskCounter.vue";
-import TaskListView from "@/views/day2/TaskListView.vue";
+import TaskListView from "@/views/day4/TaskListView.vue";
 import HomeView from "@/views/day3/HomeView.vue";
 import TaskDetailView from "@/views/day3/TaskDetailView.vue";
 import AboutView from "@/views/day3/AboutView.vue";

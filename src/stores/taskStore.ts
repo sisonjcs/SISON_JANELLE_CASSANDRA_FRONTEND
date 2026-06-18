@@ -1,17 +1,104 @@
+// =============================================================
+//  DAY 4 ASSIGNMENT — Pinia Store: stores/taskStore.js
+//  Topic: Centralized State with Pinia (state, getters, actions)
+//  Files: stores/taskStore.js  |  TaskListView.vue (updated)
+//  Time: 60 minutes
+// =============================================================
+//
+// OBJECTIVE
+// ---------
+// Migrate all task-related state OUT of your components and INTO a
+// centralized Pinia store. Components become thin — they only call
+// store actions and read store state. They never manage task data locally.
+//
+// WHAT TO BUILD
+// -------------
+// stores/taskStore.js:
+//   - state: tasks array, nextId counter
+//   - getters (computed): doneCount, pendingCount, totalCount
+//   - actions: addTask(name), toggleTask(id), removeTask(id)
+//
+// TaskListView.vue (update your existing component):
+//   - Remove all local task state and action functions
+//   - Import and use the Pinia store
+//   - Use storeToRefs() for reactive state destructuring
+//   - Destructure actions directly from the store (no storeToRefs needed)
+//
+// REQUIREMENTS (Acceptance Criteria)
+// ------------------------------------
+//  [x] defineStore('tasks', setup function) — use the Setup Store pattern
+//  [x] tasks and nextId are refs inside the store
+//  [x] doneCount, pendingCount, totalCount are computed() getters
+//  [x] All 3 actions are defined inside the store
+//  [x] store is registered in main.js: app.use(createPinia())
+//  [x] Component uses storeToRefs() for state and computed
+//  [x] Component uses store.action() directly (not storeToRefs for actions)
+//  [x] No task state remains in any component
+//
+// EXTENSION
+// ---------
+//  - Add a userStore.js with: currentUser (name), isLoggedIn (bool)
+//  - Display the current user's name in the app header
+//  - Add a "login" action that sets the user name
+//  - Add pinia-plugin-persistedstate to persist tasks to localStorage:
+//      npm install pinia-plugin-persistedstate
+//
+// HINTS (read only if stuck)
+// ---------------------------
+//  Hint 1: import { defineStore } from 'pinia'
+//  Hint 2: export const useTaskStore = defineStore('tasks', () => { ... })
+//  Hint 3: The setup function must return EVERYTHING the component needs:
+//          return { tasks, doneCount, addTask, toggleTask, removeTask }
+//  Hint 4: In the component:
+//          const store = useTaskStore()
+//          const { tasks, doneCount } = storeToRefs(store)  // reactive!
+//          const { addTask } = store                          // NOT storeToRefs
+//  Hint 5: storeToRefs is imported from 'pinia', not 'vue'
+//  Hint 6: nextId.value++ increments THEN returns — use it as the id before push
+// =============================================================
+
 import { defineStore } from 'pinia'
-import { computed, ref } from 'vue'
+import { computed, ref, type Ref } from 'vue'
+
+interface Task {
+    id: number
+    name: string
+    done: boolean
+}
 
 export const useTaskStore = defineStore('tasks', () => {
-    const tasks = ref([
-        {id: 1, name: 'Learn', done: true, dueDate: '2026-06-18', priority: 'low'},
-        {id: 2, name: 'Study', done: false, dueDate: '2026-06-18', priority: 'medium'},
-        {id: 3, name: 'Eat', done: false, dueDate: '2026-06-18', priority: 'high'},
-        {id: 4, name: 'Sleep', done: false, dueDate: '2026-06-18', priority: 'low'},
-    ])
+    const tasks: Ref<Task[]> = ref([])
+    const nextId = ref(1)
 
     const totalCount = computed(() => tasks.value.length)
     const doneCount = computed(() => tasks.value.filter(t => t.done).length)
     const pendingCount = computed(() => tasks.value.filter(t => !t.done).length)
 
-    return ({ tasks, totalCount, doneCount, pendingCount })
+    function addTask(name: string) {
+        if (name) {
+            const newTask = {
+                id: nextId.value++,
+                name: name,
+                done: false
+            }
+
+            tasks.value.push(newTask)
+        }
+    }
+
+    function toggleTask(id: number) {
+        const foundTask = tasks.value.find(t => t.id === id)
+        if (foundTask) {
+            foundTask.done = foundTask.done
+        }
+    }
+
+    function removeTask(id: number) {
+        const foundTask = tasks.value.find(t => t.id === id)
+        if (foundTask) {
+            tasks.value = tasks.value.filter(t => t.id !== id)
+        }
+    }
+    
+    return ({ tasks, doneCount, pendingCount, totalCount, addTask, toggleTask, removeTask })
 })
