@@ -123,7 +123,7 @@ function handleLogOut() {
             </button>
           </li>
         </ul>
-        <p v-show="tasks.length === 0">
+        <p v-show="!tasks || tasks.length === 0">
           No tasks yet. Add one above!
         </p>
       </div>

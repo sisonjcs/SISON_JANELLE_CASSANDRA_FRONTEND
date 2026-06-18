@@ -71,12 +71,12 @@ export const useTaskStore = defineStore('tasks', () => {
     const userStore = useUserStore()
     const { users, currentUser } = storeToRefs(userStore)
 
-    const tasks: Ref<Task[]> = ref([])
+    const tasks = computed(() => currentUser.value?.tasks)
     const nextId = ref(1)
 
-    const totalCount = computed(() => tasks.value.length)
-    const doneCount = computed(() => tasks.value.filter(t => t.done).length)
-    const pendingCount = computed(() => tasks.value.filter(t => !t.done).length)
+    const totalCount = computed(() => tasks.value?.length)
+    const doneCount = computed(() => tasks.value?.filter(t => t.done).length)
+    const pendingCount = computed(() => tasks.value?.filter(t => !t.done).length)
 
     function addTask(name: string) {
         if (name) {
@@ -86,23 +86,28 @@ export const useTaskStore = defineStore('tasks', () => {
                 done: false
             }
 
-            tasks.value.push(newTask)
+            currentUser.value?.tasks.push(newTask)
+            // tasks.value.push(newTask)
         }
     }
 
     function toggleTask(id: number) {
-        const foundTask = tasks.value.find(t => t.id === id)
+        const foundTask = currentUser.value?.tasks.find(t => t.id === id)
         if (foundTask) {
             foundTask.done = foundTask.done
         }
     }
 
     function removeTask(id: number) {
-        const foundTask = tasks.value.find(t => t.id === id)
+        const foundTask = currentUser.value?.tasks.find(t => t.id === id)
         if (foundTask) {
-            tasks.value = tasks.value.filter(t => t.id !== id)
+            if (currentUser.value?.tasks) {
+                currentUser.value.tasks = currentUser.value?.tasks.filter(t => t.id !== id)
+            }
         }
     }
     
     return ({ tasks, doneCount, pendingCount, totalCount, addTask, toggleTask, removeTask })
+}, {
+    persist: true
 })

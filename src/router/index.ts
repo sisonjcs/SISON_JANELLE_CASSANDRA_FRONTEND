@@ -37,7 +37,7 @@ router.beforeEach((to, from, next) => {
     const taskStore = useTaskStore()
     // your guard logic here
     if (to.meta.requiresTask) {
-        if (taskStore.tasks.find(task => task.id == Number(to.params.id))) {
+        if (taskStore.tasks?.find(task => task.id == Number(to.params.id))) {
             next()
         } else {
             next({ path: '/home', query: { error: 'notfound' } })
