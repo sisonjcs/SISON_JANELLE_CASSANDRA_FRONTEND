@@ -51,7 +51,7 @@ function handleLogOut() {
 <template>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <header>
-    <div v-if="!currentUser">
+    <div v-if="!currentUser" class="auth-row">
         <input 
             type="text"
             placeholder="Username"
@@ -65,7 +65,7 @@ function handleLogOut() {
             Log In
         </button>
     </div>
-    <div v-if="currentUser">
+    <div v-if="currentUser" class="user-row">
         <h2>
             Current user: {{ currentUser.name }}
         </h2>
@@ -131,6 +131,76 @@ function handleLogOut() {
 </template>
 
 <style scoped>
+header {
+  max-width: 480px;
+  margin: 24px auto 0;
+  padding: 16px 20px;
+
+  background: #42B883;
+  color: white;
+
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(66, 184, 131, 0.25);
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.auth-row,
+.user-row {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+header h2 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+header input {
+  flex: 1;
+  padding: 8px 12px;
+  border: none;
+  border-radius: 6px;
+  outline: none;
+}
+
+header button {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 6px;
+
+  background: white;
+  color: #42B883;
+
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+header button:hover {
+  background: #f3f4f6;
+}
+
+header button:disabled {
+  background: #619d829c;
+  cursor: not-allowed;
+}
+
+.logout-btn {
+  background: white;
+  color: #dc2626;
+}
+
+.logout-btn:hover {
+  background: #fee2e2;
+}
+
 .task-view { max-width: 480px; margin: 40px auto; padding: 24px; font-family: Arial, sans-serif; }
 
 .task-view p {
