@@ -14,7 +14,7 @@ import { useTaskStore } from "@/stores/taskStore";
 //  - Add a page transition animation using Vue's <Transition> component
 
 const routes = [
-    { path: '/', redirect: '/home' },
+    { path: '/', redirect: '/task-list' },
     { path: '/home', component: HomeView },
     { path: '/about', component: AboutView }, 
     { path: '/stats', component: StatsView },
