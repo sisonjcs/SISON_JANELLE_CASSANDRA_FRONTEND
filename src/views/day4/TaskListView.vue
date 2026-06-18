@@ -84,23 +84,23 @@ function handleLogOut() {
         <div class="stats">
           <!-- your stats here -->
           <div><span>Total</span>
-            <strong>{{ totalCount }}</strong>
+            <strong>{{ totalCount || 0}}</strong>
           </div>
     
           <div>
             <span>Done</span>
-            <strong>{{ doneCount }}</strong>
+            <strong>{{ doneCount || 0}}</strong>
           </div>
     
           <div>
             <span>Pending</span>
-            <strong>{{ pendingCount }}</strong>
+            <strong>{{ pendingCount || 0}}</strong>
           </div>
         </div>
     
         <div class="input-row">
           <input v-model="newTaskName" placeholder="New task..." @keyup.enter="handleAdd" />
-          <button @click="handleAdd" :disabled="!newTaskName.trim()">Add</button>
+          <button @click="handleAdd" :disabled="!newTaskName.trim() || !currentUser">Add</button>
         </div>
     
         <!-- TODO 7: Render the task list using tasks from the store -->
@@ -123,8 +123,8 @@ function handleLogOut() {
             </button>
           </li>
         </ul>
-        <p v-show="!tasks || tasks.length === 0">
-          No tasks yet. Add one above!
+        <p v-show="!tasks || tasks.length === 0 || !currentUser">
+          {{ currentUser ? "No tasks yet. Add one above!" : "Log in to start adding tasks!"}}
         </p>
       </div>
   </main>
