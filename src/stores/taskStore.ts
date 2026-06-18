@@ -57,8 +57,9 @@
 //  Hint 6: nextId.value++ increments THEN returns — use it as the id before push
 // =============================================================
 
-import { defineStore } from 'pinia'
+import { defineStore, storeToRefs } from 'pinia'
 import { computed, ref, type Ref } from 'vue'
+import { useUserStore } from './userStore'
 
 interface Task {
     id: number
@@ -67,6 +68,9 @@ interface Task {
 }
 
 export const useTaskStore = defineStore('tasks', () => {
+    const userStore = useUserStore()
+    const { users, currentUser } = storeToRefs(userStore)
+
     const tasks: Ref<Task[]> = ref([])
     const nextId = ref(1)
 

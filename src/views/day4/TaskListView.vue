@@ -10,6 +10,7 @@ import { storeToRefs } from 'pinia'
 
 // TODO 1: Import your store
 import { useTaskStore } from '@/stores/taskStore'
+import { useUserStore } from '@/stores/userStore';
 
 // TODO 2: Get the store instance
 const taskStore = useTaskStore()
@@ -20,68 +21,113 @@ const { tasks, doneCount, pendingCount, totalCount } = storeToRefs(taskStore)
 // TODO 4: Destructure ACTIONS directly (no storeToRefs needed for functions)
 const { addTask, toggleTask, removeTask } = taskStore
 
+// User store extension
+const userStore = useUserStore()
+
+const { users, currentUser } = storeToRefs(userStore)
+const { logIn, logOut } = userStore
+
 // This local ref is fine — it's UI state, not task state
 const newTaskName = ref('')
+const username = ref('')
 
 function handleAdd() {
   // TODO 5: Call addTask() from the store, then clear the input
   addTask(newTaskName.value)
   newTaskName.value = ''
 }
+
+function handleLogIn() {
+    logIn(username.value)
+    console.log(username.value)
+    username.value = ''
+}
+
+function handleLogOut() {
+    logOut(currentUser.value.name)
+}
 </script>
 
 <template>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-  <div class="task-view">
-    <h1>📝 Tasks</h1>
-
-    <!-- TODO 6: Display totalCount, doneCount, pendingCount from the store -->
-    <div class="stats">
-      <!-- your stats here -->
-      <div><span>Total</span>
-        <strong>{{ totalCount }}</strong>
-      </div>
-
-      <div>
-        <span>Done</span>
-        <strong>{{ doneCount }}</strong>
-      </div>
-
-      <div>
-        <span>Pending</span>
-        <strong>{{ pendingCount }}</strong>
-      </div>
-    </div>
-
-    <div class="input-row">
-      <input v-model="newTaskName" placeholder="New task..." @keyup.enter="handleAdd" />
-      <button @click="handleAdd" :disabled="!newTaskName.trim()">Add</button>
-    </div>
-
-    <!-- TODO 7: Render the task list using tasks from the store -->
-    <ul class="task-list">
-      <!-- v-for task in tasks -->
-      <!--   checkbox v-model="task.done" @change="toggleTask(task.id)" -->
-      <!--   span :class done -->
-      <!--   remove button @click="removeTask(task.id)" -->
-      <li v-for="task in tasks">
-        <input
-            type="checkbox"
-            v-model="task.done"
-            @change="toggleTask(task.id)"
+  <header>
+    <div v-if="!currentUser">
+        <input 
+            type="text"
+            placeholder="Username"
+            v-model="username"
+            @keyup.enter="handleLogIn"
         />
-        <span :class="{done: task.done}">
-            {{ task.name }}
-        </span>
-        <button @click="removeTask(task.id)">
-          <i class="fa fa-trash fa-lg"></i>
+        <button
+            @click="handleLogIn"
+            :disabled="!username.trim()"
+        >
+            Log In
         </button>
-      </li>
-    </ul>
-    <p v-show="tasks.length === 0">
-      No tasks yet. Add one above!
-    </p>
-  </div>
+    </div>
+    <div v-if="currentUser">
+        <h2>
+            Current user: {{ currentUser.name }}
+        </h2>
+        <button
+            @click="handleLogOut"
+        >
+            Log Out
+        </button>
+    </div>
+  </header>
+  <main>
+      <div class="task-view">
+        <h1>📝 Tasks</h1>
+    
+        <!-- TODO 6: Display totalCount, doneCount, pendingCount from the store -->
+        <div class="stats">
+          <!-- your stats here -->
+          <div><span>Total</span>
+            <strong>{{ totalCount }}</strong>
+          </div>
+    
+          <div>
+            <span>Done</span>
+            <strong>{{ doneCount }}</strong>
+          </div>
+    
+          <div>
+            <span>Pending</span>
+            <strong>{{ pendingCount }}</strong>
+          </div>
+        </div>
+    
+        <div class="input-row">
+          <input v-model="newTaskName" placeholder="New task..." @keyup.enter="handleAdd" />
+          <button @click="handleAdd" :disabled="!newTaskName.trim()">Add</button>
+        </div>
+    
+        <!-- TODO 7: Render the task list using tasks from the store -->
+        <ul class="task-list">
+          <!-- v-for task in tasks -->
+          <!--   checkbox v-model="task.done" @change="toggleTask(task.id)" -->
+          <!--   span :class done -->
+          <!--   remove button @click="removeTask(task.id)" -->
+          <li v-for="task in tasks">
+            <input
+                type="checkbox"
+                v-model="task.done"
+                @change="toggleTask(task.id)"
+            />
+            <span :class="{done: task.done}">
+                {{ task.name }}
+            </span>
+            <button @click="removeTask(task.id)">
+              <i class="fa fa-trash fa-lg"></i>
+            </button>
+          </li>
+        </ul>
+        <p v-show="tasks.length === 0">
+          No tasks yet. Add one above!
+        </p>
+      </div>
+  </main>
 </template>
 
 <style scoped>
