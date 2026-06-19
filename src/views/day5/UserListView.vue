@@ -14,7 +14,7 @@ function handleRetry() {
 <template>
 <div class="user-view">
     <h1>
-        User List
+      👤 User List
     </h1>
     <p class="subtitle">Loaded from JSONPlaceholder API</p>
 
@@ -33,11 +33,28 @@ function handleRetry() {
       </span>
     </div>
 
-    <ul v-if="!loading && !error" class="user-list">
+    <!-- <ul v-if="!loading && !error" class="user-list">
         <li v-for="user in users" :key="user.id">
             {{ user.name }}
         </li>
-    </ul>
+    </ul> -->
+    <div class="user-grid">
+      <div v-for="user in users" :key="user.id" class="user-card">
+        <h3>
+          {{ user.name }}
+        </h3>
+        <p>
+          <strong>Username: </strong> {{ user.username }}
+        </p>
+        <p>
+          <strong>Email: </strong> {{ user.email }}
+        </p>
+        <p>
+          <strong>Phone: </strong> {{ user.phone }}
+        </p>
+      </div>
+
+    </div>
 
     <p v-if="!loading && !error" class="count">
         Showing {{ users.length || 0 }} users
@@ -47,7 +64,7 @@ function handleRetry() {
 
 <style scoped>
 .user-view {
-  max-width: 560px;
+  max-width: 1000px;
   margin: 40px auto;
   padding: 24px;
   font-family: Arial, sans-serif;
@@ -89,27 +106,33 @@ h1 {
     text-decoration: underline;
 }
 
-.user-list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-.user-list li {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+.user-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
   gap: 10px;
-  padding: 10px 12px;
-  background: white;
-  border-radius: 6px;
-  margin-bottom: 6px;
-  border: 1px solid #d7d7d7;
-  font-size: 14px;
-  cursor: pointer;
 }
 
-.user-list li:hover {
-  background: rgb(232, 230, 230);
+.user-card {
+  grid-column: span 1;
+  background: #eee;
+  border: 1px solid gray;
+  border-radius: 10px;
+  padding: 10px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.user-card:hover {
+  background: #dadada;
+  transform: translateY(-3px);
+}
+
+.user-card h3 {
+  font-weight: bold;
+}
+
+.user-card strong {
+  font-weight: 600;
 }
 
 .count {
