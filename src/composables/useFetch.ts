@@ -77,7 +77,6 @@ export function useFetch(url: string) {
       const response = await fetch(url)
       if (response.ok) {
         data.value = await response.json()
-        console.log(data.value)
       } else {
         throw new Error(`HTTP ${response.status}`)
       }
