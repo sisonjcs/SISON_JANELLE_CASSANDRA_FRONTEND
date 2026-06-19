@@ -13,6 +13,9 @@ function handleRetry() {
 
 <template>
 <div class="user-view">
+    <nav>
+      <a href="/todo-list">Go to Todo List</a>
+    </nav>
     <h1>
       👤 User List
     </h1>
@@ -68,6 +71,9 @@ function handleRetry() {
   margin: 40px auto;
   padding: 24px;
   font-family: Arial, sans-serif;
+}
+nav:hover {
+  text-decoration: underline;
 }
 h1 {
   color: #1b2a4a;

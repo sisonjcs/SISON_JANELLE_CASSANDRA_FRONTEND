@@ -47,6 +47,9 @@ function handleRetry() {
 
 <template>
   <div class="todo-view">
+    <nav>
+      <a href="/user-list">Go to User List</a>
+    </nav>
     <h1>📋 Todo List</h1>
     <p class="subtitle">Loaded from JSONPlaceholder API</p>
 
@@ -127,6 +130,11 @@ function handleRetry() {
   padding: 24px;
   font-family: Arial, sans-serif;
 }
+
+nav:hover {
+  text-decoration: underline;
+}
+
 h1 {
   color: #1b2a4a;
   margin-bottom: 4px;
@@ -206,6 +214,16 @@ h1 {
   color: white;
   border-color: #42b883;
 }
+.filters button.active:hover {
+  background: #359469;
+  color: white;
+  border-color: #359469;
+}
+.filters button:hover {
+  background: #b4e4cf;
+  border-color: #b4e4cf;
+  color: #2b7554;
+}
 .todo-list {
   list-style: none;
   padding: 0;
@@ -222,11 +240,15 @@ h1 {
   border: 1px solid #eee;
   font-size: 14px;
 }
+.todo-list input {
+  cursor: pointer;
+}
 .todo-list li.done-item {
   opacity: 0.6;
 }
 .todo-list li span {
   flex: 1;
+  cursor: default;
 }
 .completed-text {
   text-decoration: line-through;
