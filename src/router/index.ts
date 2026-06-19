@@ -7,6 +7,7 @@ import AboutView from "@/views/day3/AboutView.vue";
 import StatsView from "@/views/day3/StatsView.vue";
 import { useTaskStore } from "@/stores/taskStore";
 import TodoListView from "@/views/day5/TodoListView.vue";
+import UserListView from "@/views/day5/UserListView.vue";
 
 // EXTENSION
 // ---------
@@ -22,7 +23,8 @@ const routes = [
     { path: '/task-counter', component: TaskCounter },
     { path: '/task-list', component: TaskListView },
     { path: '/task/:id', component: TaskDetailView, meta: { requiresTask: true } },
-    { path: '/todo-list', component: TodoListView}
+    { path: '/todo-list', component: TodoListView},
+    { path: '/user-list', component: UserListView}
 ]
 
 const router = createRouter({
