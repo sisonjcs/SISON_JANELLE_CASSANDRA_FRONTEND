@@ -62,12 +62,11 @@
 // =============================================================
 
 import { ref, onMounted } from 'vue'
-import type { TaskDetail } from '@/types/TaskDetail'
 
 // TODO 1: Export a useFetch function that accepts a url parameter
 export function useFetch(url: string) {
   // TODO 2: Create three refs — data, loading, error
-  const data    = ref<TaskDetail[]>([])
+  const data    = ref([])
   const loading = ref(true)
   const error   = ref<any>(null)
 
