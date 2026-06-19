@@ -6,6 +6,7 @@ import TaskDetailView from "@/views/day3/TaskDetailView.vue";
 import AboutView from "@/views/day3/AboutView.vue";
 import StatsView from "@/views/day3/StatsView.vue";
 import { useTaskStore } from "@/stores/taskStore";
+import TodoListView from "@/views/day5/TodoListView.vue";
 
 // EXTENSION
 // ---------
@@ -14,13 +15,14 @@ import { useTaskStore } from "@/stores/taskStore";
 //  - Add a page transition animation using Vue's <Transition> component
 
 const routes = [
-    { path: '/', redirect: '/task-list' },
+    { path: '/', redirect: '/todo-list' },
     { path: '/home', component: HomeView },
     { path: '/about', component: AboutView }, 
     { path: '/stats', component: StatsView },
     { path: '/task-counter', component: TaskCounter },
     { path: '/task-list', component: TaskListView },
     { path: '/task/:id', component: TaskDetailView, meta: { requiresTask: true } },
+    { path: '/todo-list', component: TodoListView}
 ]
 
 const router = createRouter({
