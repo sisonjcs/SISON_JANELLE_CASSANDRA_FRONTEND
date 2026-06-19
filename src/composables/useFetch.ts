@@ -70,13 +70,14 @@ export function useFetch(url: string) {
   const loading = ref(true)
   const error   = ref<any>(null)
 
-  // TODO 3: Use onMounted with an async callback to fetch the data
-  onMounted(async () => {
+  const fetchData = async () => {
+    error.value = null
     try {
   //     TODO 4: fetch the url, check response.ok, parse JSON into data.value
       const response = await fetch(url)
       if (response.ok) {
         data.value = await response.json()
+        console.log(data.value)
       } else {
         throw new Error(`HTTP ${response.status}`)
       }
@@ -87,8 +88,13 @@ export function useFetch(url: string) {
   //     TODO 6: set loading.value = false
       loading.value = false
     }
+  }
+
+  // TODO 3: Use onMounted with an async callback to fetch the data
+  onMounted(async () => {
+    fetchData()
   })
 
   // TODO 7: Return the three refs
-  return { data, loading, error }
+  return { data, loading, error , fetchData}
 }

@@ -1,8 +1,13 @@
 <script setup>
 import { useFetch } from '@/composables/useFetch';
+import { ref, computed } from 'vue';
 import { VueSpinnerGrid } from 'vue3-spinners';
 
-const { data: users, loading, error } = useFetch("https://jsonplaceholder.typicode.com/users")
+const { data: users, loading, error, fetchData } = useFetch("https://jsonplaceholder.typicode.com/users")
+
+function handleRetry() {
+    fetchData()
+}
 
 </script>
 
@@ -19,18 +24,23 @@ const { data: users, loading, error } = useFetch("https://jsonplaceholder.typico
       <p>Fetching users, sit tight!</p>
     </div>
     <!-- TODO 4: Show an error message if error has a value -->
-    <p v-if="error" class="error-box">
-      {{ error }}
-    </p>
+    <div v-if="error" class="error-box">
+      <p>
+        {{ error }}
+      </p>
+      <span @click="handleRetry">
+        Click here to refresh
+      </span>
+    </div>
 
-    <ul class="user-list">
+    <ul v-if="!loading && !error" class="user-list">
         <li v-for="user in users" :key="user.id">
             {{ user.name }}
         </li>
     </ul>
 
-    <p class="count">
-        Showing {{ users.length }} users
+    <p v-if="!loading && !error" class="count">
+        Showing {{ users.length || 0 }} users
     </p>
 </div>
 </template>
@@ -69,6 +79,16 @@ h1 {
   padding: 16px;
   color: #dc2626;
 }
+
+.error-box span {
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.error-box span:hover {
+    text-decoration: underline;
+}
+
 .user-list {
   list-style: none;
   padding: 0;

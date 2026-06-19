@@ -17,27 +17,32 @@ const {
   data: todos,
   loading,
   error,
+  fetchData
 } = useFetch("https://jsonplaceholder.typicode.com/todos");
 
 const searchTask = ref('')
-
-const filteredTodos = computed(() => {
-  if (!todos.value) return []; // still loading
-  if (searchTask.value.trim())
-    return todos.value.filter((todo) => todo.title.includes(searchTask.value))
-  if (filter.value === "all") return todos.value.slice(0, 20);
-  if (filter.value === "done")
-    return todos.value.filter((todo) => todo.completed);
-  if (filter.value === "pending")
-    return todos.value.filter((todo) => !todo.completed);
-  return [];
-});
-
 
 // TODO 2: Create a filteredTodos computed() that:
 //  - Returns [] if todos.value is null (still loading)
 //  - Filters by filter.value ('all' shows first 20, 'done' shows completed, 'pending' shows incomplete)
 // const filteredTodos = computed(() => { ... })
+const filteredTodos = computed(() => {
+  if (!todos.value) return []; // still loading
+
+  const searchedTasks = computed(() => todos.value.filter((todo) => todo.title.includes(searchTask.value)))
+
+  if (filter.value === "all") return searchedTasks.value.slice(0, 20);
+  if (filter.value === "done")
+    return searchedTasks.value.filter((todo) => todo.completed);
+  if (filter.value === "pending")
+    return searchedTasks.value.filter((todo) => !todo.completed);
+  return [];
+});
+
+function handleRetry() {
+    fetchData()
+}
+
 </script>
 
 <template>
@@ -51,9 +56,14 @@ const filteredTodos = computed(() => {
       <p>Fetching todos, sit tight!</p>
     </div>
     <!-- TODO 4: Show an error message if error has a value -->
-    <p v-if="error" class="error-box">
-      {{ error }}
-    </p>
+    <div v-if="error" class="error-box">
+      <p>
+        {{ error }}
+      </p>
+      <span @click="handleRetry">
+        Click here to refresh
+      </span>
+    </div>
 
     <!-- TODO 5: Show the content block when NOT loading and NO error -->
     <div v-if="!loading && !error">
@@ -143,6 +153,14 @@ h1 {
   border-radius: 8px;
   padding: 16px;
   color: #dc2626;
+}
+.error-box span {
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.error-box span:hover {
+    text-decoration: underline;
 }
 .search {
   max-width: 480px;
