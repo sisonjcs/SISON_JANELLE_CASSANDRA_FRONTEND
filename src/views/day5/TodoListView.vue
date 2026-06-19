@@ -7,6 +7,7 @@
 <script setup>
 import { ref, computed } from 'vue'
 import { useFetch } from '@/composables/useFetch'
+import { VueSpinnerGrid } from 'vue3-spinners'
 
 const filter = ref('done') // 'all' | 'done' | 'pending'
 
@@ -35,8 +36,12 @@ const filteredTodos = computed(() => {
     <p class="subtitle">Loaded from JSONPlaceholder API</p>
 
     <!-- TODO 3: Show a loading message/spinner while loading is true -->
-    <p v-if="loading" class="loading">
-    </p>
+    <div v-if="loading" class="loading">
+      <VueSpinnerGrid size="30" color="green"/>
+      <p>
+        Fetching todos, sit tight!
+      </p>
+    </div>
     <!-- TODO 4: Show an error message if error has a value -->
       <p v-if="error" class="error-box">
       {{ error }}
@@ -86,7 +91,7 @@ const filteredTodos = computed(() => {
 .todo-view { max-width: 560px; margin: 40px auto; padding: 24px; font-family: Arial, sans-serif; }
 h1 { color: #1B2A4A; margin-bottom: 4px; }
 .subtitle { color: #9ca3af; font-size: 13px; margin-bottom: 20px; }
-.loading { text-align: center; padding: 48px; color: #42B883; font-size: 16px; }
+.loading { text-align: center; padding: 48px; color: #42B883; font-size: 16px; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 10px;}
 .error-box { background: #fef2f2; border: 1px solid #fca5a5; border-radius: 8px; padding: 16px; color: #dc2626; }
 .filters { display: flex; gap: 8px; margin-bottom: 16px; }
 .filters button { padding: 6px 16px; border: 1px solid #ddd; border-radius: 20px; background: white; cursor: pointer; font-size: 13px; }
