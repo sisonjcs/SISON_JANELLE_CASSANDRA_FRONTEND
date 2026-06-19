@@ -62,7 +62,6 @@
 // =============================================================
 
 import { ref, onMounted } from 'vue'
-import axios from 'axios'
 import type { TaskDetail } from '@/types/TaskDetail'
 
 // TODO 1: Export a useFetch function that accepts a url parameter
@@ -76,11 +75,11 @@ export function useFetch(url: string) {
   onMounted(async () => {
     try {
   //     TODO 4: fetch the url, check response.ok, parse JSON into data.value
-      const response = await axios.get<TaskDetail[]>(url)
-
-      if (response.status === 200) {
-        console.log(response.data)
-        data.value = response.data
+      const response = await fetch(url)
+      if (response.ok) {
+        data.value = await response.json()
+      } else {
+        throw new Error(`HTTP ${response.status}`)
       }
     } catch (e: any) {
   //     TODO 5: assign the error message to error.value
