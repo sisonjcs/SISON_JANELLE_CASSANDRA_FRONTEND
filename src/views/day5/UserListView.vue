@@ -29,6 +29,9 @@ const { data: users, loading, error } = useFetch("https://jsonplaceholder.typico
         </li>
     </ul>
 
+    <p class="count">
+        Showing {{ users.length }} users
+    </p>
 </div>
 </template>
 
@@ -80,7 +83,19 @@ h1 {
   background: white;
   border-radius: 6px;
   margin-bottom: 6px;
-  border: 1px solid #eee;
+  border: 1px solid #d7d7d7;
   font-size: 14px;
+  cursor: pointer;
+}
+
+.user-list li:hover {
+  background: rgb(232, 230, 230);
+}
+
+.count {
+  font-size: 13px;
+  color: #9ca3af;
+  margin-top: 12px;
+  text-align: right;
 }
 </style>
